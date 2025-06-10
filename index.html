@@ -55,7 +55,7 @@
       const formData = new FormData(e.target);
       formData.append("action", "signup");
 
-      fetch("YOUR_SCRIPT_URL", {
+      fetch("https://script.google.com/macros/s/AKfycbwBE0IumaIvVPRGtEIBTW1palvWCldvwGoQahjSvFEJgwqfB6oDGUjNeZ_dGOYQJX_S/exec", {
         method: "POST",
         body: formData
       })
