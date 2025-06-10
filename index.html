@@ -49,28 +49,29 @@
   </form>
   <p class="msg" id="response"></p>
 
-  <script>
-    document.getElementById("signupForm").onsubmit = function(e) {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      formData.append("action", "signup");
+ <script>
+  document.getElementById("signupForm").onsubmit = function(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.append("action", "signup");
 
-      fetch("https://script.google.com/macros/s/AKfycbwBE0IumaIvVPRGtEIBTW1palvWCldvwGoQahjSvFEJgwqfB6oDGUjNeZ_dGOYQJX_S/exec", {
-        method: "POST",
-        body: formData
-      })
-      .then(res => res.text())
-      .then(msg => {
-        const resBox = document.getElementById("response");
-        if (msg === "SignupSuccess") {
-          resBox.innerText = "Signup successful. Please wait for approval.";
-        } else if (msg === "UserExists") {
-          resBox.innerText = "Username already exists.";
-        } else {
-          resBox.innerText = "Error occurred.";
-        }
-      });
-    };
-  </script>
+    fetch("https://script.google.com/macros/s/AKfycbx846ffoTCdjEw0c2HHbp24VhxqzK9IKxPzNCxhsn8wvd7EhwDNS3OeZfhQFS20ECmptQ/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(msg => {
+      if (msg === "SignupSuccess") {
+        // Redirect to login page with message in URL
+        window.location.href = "login.html?signup=success";
+      } else if (msg === "UserExists") {
+        document.getElementById("response").textContent = "Username already exists.";
+      } else {
+        document.getElementById("response").textContent = "Error occurred.";
+      }
+    });
+  };
+</script>
+
 </body>
 </html>
