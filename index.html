@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up - 12 Board Booster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #0d0d2b 0%, #000000 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 40px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 250px;
+    }
+
+    button {
+      padding: 10px 25px;
+      background-color: #00bfff;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0099cc;
+    }
+
+    .msg {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Sign Up for 12 Board Booster</h2>
+  <form id="signupForm">
+    <input type="text" name="username" placeholder="Username" required /><br>
+    <input type="password" name="password" placeholder="Password" required /><br>
+    <input type="text" name="batchcode" placeholder="Batch Code" required /><br>
+    <button type="submit">Sign Up</button>
+  </form>
+  <p class="msg" id="response"></p>
+
+  <script>
+    document.getElementById("signupForm").onsubmit = function(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      formData.append("action", "signup");
+
+      fetch("YOUR_SCRIPT_URL", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.text())
+      .then(msg => {
+        const resBox = document.getElementById("response");
+        if (msg === "SignupSuccess") {
+          resBox.innerText = "Signup successful. Please wait for approval.";
+        } else if (msg === "UserExists") {
+          resBox.innerText = "Username already exists.";
+        } else {
+          resBox.innerText = "Error occurred.";
+        }
+      });
+    };
+  </script>
+</body>
+</html>

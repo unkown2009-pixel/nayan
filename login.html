@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8" />
+<title>12 Board Booster</title>
+<style>
+  /* CSS remains unchanged */
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, #0d0d2b 0%, #000000 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.2) 1px, transparent 2px);
+    background-size: 4px 4px;
+    animation: twinkle 4s infinite linear;
+    z-index: 0;
+  }
+
+  @keyframes twinkle {
+    0% {
+      opacity: 0.8;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.8;
+    }
+  }
+
+  .login-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 30, 0.8);
+    border: 1px solid rgba(0, 0, 50, 0.6);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+  }
+
+  aside {
+    font-size: 1rem;
+    font-style: italic;
+    color: #87cefa;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #111;
+    color: #0ff;
+    box-shadow: inset 0 0 5px #00ffff;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 6px;
+  }
+
+  label {
+    font-size: 0.9rem;
+    color: #ddd;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #00bfff;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 0 15px #00ffff, 0 0 30px #00bfff;
+  }
+
+  button:hover {
+    background-color: #00aaff;
+  }
+
+  .error {
+    color: #ff4444;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .welcome {
+    color: #7fffd4;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: none;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+
+  .credits {
+    margin-top: 5px;
+    font-style: italic;
+    color: #f0e68c;
+  }
+</style>
+<script type='text/javascript'>
+  window.smartlook||(function(d) {
+    var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
+    })(document);
+    smartlook('init', '79a87c9979e3e3ea5333f3d0e563b03d948dd8fb', { region: 'eu' });
+</script>
+</head>
+
+
+<body>
+  <div id="musicBox"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 999; text-align: right; font-style: italic; font-size: 0.9rem; color: #87cefa; pointer-events: auto; text-shadow: 0 0 5px #00ffff;">
+    <audio id="bgMusic" autoplay loop>
+      <source src="goosebumps.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <div id="quote" style="margin-bottom: 5px; font-style: italic; color: #aaddff; text-shadow: 0 0 5px #00ffff;">
+      "Reach for the stars, and you might just catch one."
+    </div>
+    <button onclick="toggleMusic()" id="musicBtn"
+      style="padding: 6px 14px; background-color: #00bfff; border: none; border-radius: 8px; color: white; font-size: 0.85rem; cursor: pointer; box-shadow: 0 0 10px #00ffff, 0 0 20px #00bfff; text-shadow: 0 0 3px #fff;">
+      🔈 Play Music
+    </button>
+  </div>
+
+  <div class="login-container">
+    <h2>12 Board Booster</h2>
+    <aside><b><u> BY – Nayan Gupta </u></b></aside>
+
+    <div class="error" id="error"></div>
+    <div class="welcome" id="welcome">🚀 Welcome to the stars!</div>
+
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+
+    <div style="text-align:left; margin-bottom:10px;">
+      <label><input type="checkbox" id="remember" /> Remember Me</label>
+    </div>
+
+    <button onclick="login()">Log In</button>
+  </div>
+
+  <footer>
+    <p>🚀 This website has rights reserved and made in 2025.<br> This website does not have any copyright © issues </p>
+    <div class="credits">Made by Nayan Gupta </div>
+  </footer>
+
+  <script>
+  function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    if (music.paused) {
+      music.muted = false;
+      music.play();
+      btn.textContent = '🔊 Pause Music';
+    } else {
+      music.pause();
+      btn.textContent = '🔈 Play Music';
+    }
+  }
+
+  function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const formData = new FormData();
+    formData.append("action", "login");
+    formData.append("username", username);
+    formData.append("password", password);
+
+    fetch("YOUR_SCRIPT_URL", {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.text())
+    .then(msg => {
+      if (msg === "LoginSuccess") {
+        window.location.href = "main.html";
+      } else if (msg === "NotApproved") {
+        document.getElementById("error").innerText = "❌ Not approved yet. Wait for admin approval.";
+      } else {
+        document.getElementById("error").innerText = "❌ Invalid username or password.";
+      }
+    });
+  }
+
+  window.onload = () => {
+    document.getElementById('bgMusic').play().catch(() => {});
+  };
+</script>
+
+</body>
+
+</html>
